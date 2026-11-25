@@ -11,5 +11,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const EXCUSE =
   "Sorry, my boiler burst this morning and I'm ankle-deep waiting for the emergency plumber";
 
+// Self-check the gate before writing: 1–140 chars, one line, at most 20 words.
+const words = EXCUSE.trim().split(/\s+/);
+if (EXCUSE.length < 1 || EXCUSE.length > 140 || EXCUSE.includes("\n") || words.length > 20) {
+  throw new Error(`entry fails the gate: ${words.length} words, ${EXCUSE.length} chars`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", EXCUSE, "utf8");
